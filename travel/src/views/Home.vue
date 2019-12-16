@@ -26,7 +26,7 @@ export default {
   },
   data () {
     return {
-      loop: '大理',
+      loop: '北京',
       swiperList: [],
       recommendList: [],
       weekendList: [],

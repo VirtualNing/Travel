@@ -49,7 +49,7 @@ export default {
   .item-img-wrapper
     overflow: hidden
     height: 0
-    padding-bottom: 30%
+    padding-bottom: 32.7%
     border-radius: .3rem
   .item-img
     width: 100%
