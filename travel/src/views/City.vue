@@ -2,8 +2,8 @@
   <div>
     <City-header/>
     <City-search />
-    <City-list/>
-    <City-alphabel/>
+    <City-list :cities="allcities" :hot="hotCities"/>
+    <City-alphabel :cities="allcities"/>
   </div>
 </template>
 
@@ -19,6 +19,28 @@ export default {
     CitySearch,
     CityList,
     CityAlphabel
+  },
+  data () {
+    return {
+      allcities: {},
+      hotCities: []
+    }
+  },
+  methods: {
+    getCityInfo: function () {
+      this.$axios.get('../../city.json').then(this.handleGetCityInfoSucc)
+    },
+    handleGetCityInfoSucc: function (res) {
+      res = res.data
+      if (res.ret) {
+        const data = res.data
+        this.allcities = data.cities
+        this.hotCities = data.hotCities
+      }
+    }
+  },
+  mounted () {
+    this.getCityInfo()
   }
 }
 </script>
