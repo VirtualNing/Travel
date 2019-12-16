@@ -5,11 +5,11 @@
       <span class="hot-scenic">当季热门景点</span>
     </div>
     <ul>
-      <li class="item border-bottom" v-for="item of remcommendList" :key="item.id">
-        <img class="item-img" :src="item.imgUrl" alt="">
+      <li class="item border-bottom" v-for="item of list" :key="item.id">
+        <img class="item-img" :src="require('@/assets/' + item.imgUrl)" alt="">
         <div class="item-info">
           <p class="item-title">{{item.title}}</p>
-          <p class="item-desc">{{item.desc}}</p>
+          <p class="item-desc">{{item.descText}}</p>
           <button class="item-button">查看详情</button>
         </div>
       </li>
@@ -20,45 +20,8 @@
 <script>
 export default {
   name: 'HomeRecommend',
-  data () {
-    return {
-      remcommendList: [{
-        id: '0001',
-        imgUrl: require('@/assets/Image/recommend/cl.jpg'),
-        title: '长隆旅游度假区',
-        desc: '一站式旅游度假胜地，广东必游景点'
-      },
-      {
-        id: '0002',
-        imgUrl: require('@/assets/Image/recommend/cla.jpg'),
-        title: '长隆野生动物世界',
-        desc: '熊猫三胞胎，与您共享欢乐'
-      },
-      {
-        id: '0003',
-        imgUrl: require('@/assets/Image/recommend/xq.jpg'),
-        title: '广州星期8小镇',
-        desc: '让孩子感知成人的苦与乐趣'
-      },
-      {
-        id: '0004',
-        imgUrl: require('@/assets/Image/recommend/sh.jpg'),
-        title: '珠海长隆海洋公园',
-        desc: '经历一场难忘的深海历奇之旅'
-      },
-      {
-        id: '0005',
-        imgUrl: require('@/assets/Image/recommend/mf.jpg'),
-        title: '长隆飞鸟乐园',
-        desc: '长隆飞鸟乐园，一个真正看鸟飞的地方'
-      },
-      {
-        id: '0006',
-        imgUrl: require('@/assets/Image/recommend/hl.jpg'),
-        title: '深圳野生动物园',
-        desc: '放养式的动物园让你和动物们"零距离"'
-      }]
-    }
+  props: {
+    list: Array
   }
 }
 </script>

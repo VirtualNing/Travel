@@ -8,7 +8,8 @@ import './assets/styles/reset.css'
 import './assets/styles/border.css'
 import './assets/styles/iconfont.css'
 import 'swiper/dist/css/swiper.css'
-
+import axios from 'axios'
+Vue.prototype.$axios = axios
 Vue.use(VueAwesomeSwiper)
 
 Vue.config.productionTip = false
@@ -17,5 +18,6 @@ fastClick.attach(document.body)
 new Vue({
   router,
   store,
+  axios,
   render: h => h(App)
 }).$mount('#app')

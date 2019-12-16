@@ -1,10 +1,10 @@
 <template>
   <div class="home">
-    <Home-header/>
-    <Home-swiper></Home-swiper>
-    <Home-icons></Home-icons>
-    <Home-recommend/>
-    <Home-weekend/>
+    <Home-header :loop="loop"/>
+    <Home-swiper :list="swiperList"></Home-swiper>
+    <Home-icons :list="IconsList"></Home-icons>
+    <Home-recommend :list="recommendList"/>
+    <Home-weekend :list="weekendList"/>
   </div>
 </template>
 
@@ -23,6 +23,37 @@ export default {
     HomeIcons,
     HomeRecommend,
     HomeWeekend
+  },
+  data () {
+    return {
+      loop: '大理',
+      swiperList: [],
+      recommendList: [],
+      weekendList: [],
+      IconsList: []
+    }
+  },
+  methods: {
+    getHomeInfo: function () {
+      /**
+       * const url = '../../test.json'
+       * 本地json访问
+       * */
+      const url = 'http://127.0.0.1/api/getHemoData.php'
+      this.$axios.get(url).then(this.getHomeInfoSucc)
+    },
+    getHomeInfoSucc: function (response) {
+      var str = response.data
+      if (str.success === true) {
+        this.swiperList = str.swiperList
+        this.recommendList = str.recommendList
+        this.weekendList = str.weekendList
+        this.IconsList = str.iconsList
+      }
+    }
+  },
+  mounted () {
+    this.getHomeInfo()
   }
 }
 </script>
