@@ -1,6 +1,9 @@
 <template>
   <div>
-    <Detail-banner></Detail-banner>
+    <Detail-banner
+     :sightName="sightName"
+     :gallaryImgs="gallaryImgs"
+     :bannerImg="bannerImg"></Detail-banner>
     <Detail-header></Detail-header>
     <div class="content">
       <Detail-list :list="list"/>
@@ -22,33 +25,36 @@ export default {
   data () {
     return {
       code: '',
-      list: [{
-        title: '成人票',
-        children: [{
-          title: '成人三馆联票',
-          children: [{
-            title: '成人三馆联票 - 某一连锁店销售'
-          }]
-        }, {
-          title: '成人五馆联票'
-        }]
-      }, {
-        title: '学生票'
-      }, {
-        title: '儿童票'
-      }, {
-        title: '特惠票'
-      }]
+      sightName: '',
+      bannerImg: '',
+      gallaryImgs: [],
+      list: []
     }
   },
   methods: {
     getRouterCode () {
       this.code = this.$route.query.code
-      console.log(this.code, 123)
+    },
+    getDetailInfo () {
+      const url = '../../detail.json'
+      this.$axios.get(url).then(this.getDetailSucc)
+    },
+    getDetailSucc (res) {
+      res = res.data
+      if (res.ret && res.data) {
+        const data = res.data
+        this.sightName = data.sightName
+        this.bannerImg = data.bannerImg
+        this.gallaryImgs = data.gallaryImgs
+        this.list = data.categoryList
+      }
     }
   },
   activated () {
     this.getRouterCode()
+  },
+  mounted () {
+    this.getDetailInfo()
   }
 }
 </script>
