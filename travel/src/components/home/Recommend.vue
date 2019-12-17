@@ -5,7 +5,11 @@
       <span class="hot-scenic">当季热门景点</span>
     </div>
     <ul>
-      <li class="item border-bottom" v-for="item of list" :key="item.id">
+      <li @click="Todetail(item.rid)"
+       class="item border-bottom"
+       v-for="item of list"
+       :key="item.rid"
+      >
         <img class="item-img" :src="require('@/assets/' + item.imgUrl)" alt="">
         <div class="item-info">
           <p class="item-title">{{item.title}}</p>
@@ -22,6 +26,17 @@ export default {
   name: 'HomeRecommend',
   props: {
     list: Array
+  },
+  methods: {
+    Todetail (code) {
+      code = parseInt(code)
+      this.$router.push({
+        name: `Detail`,
+        query: {
+          code
+        }
+      })
+    }
   }
 }
 </script>
