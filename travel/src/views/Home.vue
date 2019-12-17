@@ -15,6 +15,7 @@ import HomeSwiper from '@/components/home/Swiper'
 import HomeIcons from '@/components/home/Icons'
 import HomeRecommend from '@/components/home/Recommend'
 import HomeWeekend from '@/components/home/Weekend'
+import { mapState } from 'vuex'
 export default {
   name: 'home',
   components: {
@@ -26,6 +27,7 @@ export default {
   },
   data () {
     return {
+      lastCity: '',
       swiperList: [],
       recommendList: [],
       weekendList: [],
@@ -38,7 +40,7 @@ export default {
        * const url = '../../test.json'
        * 本地json访问
        * */
-      const url = 'http://127.0.0.1/api/getHemoData.php'
+      const url = 'http://127.0.0.1/api/getHemoData.php?city=' + this.city
       this.$axios.get(url).then(this.getHomeInfoSucc)
     },
     getHomeInfoSucc: function (response) {
@@ -51,8 +53,18 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapState(['city'])
+  },
   mounted () {
     this.getHomeInfo()
+    this.lastCity = this.city
+  },
+  activated () {
+    if (this.lastCity !== this.city) {
+      this.lastCity = this.city
+      console.log('activated')
+    }
   }
 }
 </script>
